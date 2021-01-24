@@ -1,0 +1,43 @@
+﻿@using MatBlazor
+
+<div class="top-row pl-4 navbar navbar-dark">
+    <a class="navbar-brand" href="">WebApp</a>
+    <button class="navbar-toggler" @onclick="ToggleNavMenu">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</div>
+
+<MatNavMenu>
+    <MatNavSubMenu @bind-Expanded="@navSubMenuOpenState">
+        <MatNavSubMenuHeader>
+            <MatNavItem AllowSelection="false"><MatIcon Icon="all_inbox"></MatIcon>&nbsp; Data </MatNavItem>
+        </MatNavSubMenuHeader>
+        <MatNavSubMenuList>
+            <MatNavItem> <MatIcon Icon="build"></MatIcon> Aturan&nbsp;</MatNavItem>
+            <MatNavItem> <MatIcon Icon="build"></MatIcon> Variable&nbsp;</MatNavItem>
+        </MatNavSubMenuList>
+    </MatNavSubMenu>
+    <MatNavItem><MatIcon Icon="grade"></MatIcon>&nbsp; Item 4 </MatNavItem>
+</MatNavMenu>
+
+
+
+@code {
+    private bool collapseNavMenu = true;
+
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    [Inject] IJSRuntime JS { get; set; }
+
+    bool navSubMenuOpenState;
+
+    async Task ClickMe()
+    {
+        Console.WriteLine("test");
+        await JS.InvokeAsync<object>("alert", "Successful OnClick!");
+    }
+}
